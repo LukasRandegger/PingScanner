@@ -7,6 +7,9 @@ import javax.swing.*;
  */
 public class Gui extends JFrame {
 
+    // diese Variable existiert nur, damit die Warnung nicht mehr auftaucht
+    private static final long serialVersionUID = 1L;
+
     JFrame hauptfenster;
     JLabel label_instruktionen;
     JLabel label_ip;
@@ -101,5 +104,5 @@ public class Gui extends JFrame {
         this.suchlauf = new JButton("Suchlauf starten");
         panel_host_button.add(this.suchlauf);
         // ENDE Host und Button Panel
-        }
+    }
 }
