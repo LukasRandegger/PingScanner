@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 /**
@@ -83,10 +85,9 @@ public class Gui extends JFrame {
         this.subnetz = new JLabel("Subnetzmaske:");
         panel_ip.add(this.subnetz);
 
-        // Der JComboBox-Konstruktor akzeptiert nur einen String-Array als Argument
-        // Die Zahl muss daher für die Weiterverwendung zu einem Integer umgewandelt werden
         String[] subnetze = {"8", "16", "24"};
         this.subnetz_auswahl = new JComboBox(subnetze);
+        subnetz_auswahl.setSelectedItem("24");
         panel_ip.add(this.subnetz_auswahl);
         // ENDE IP Panel
 
@@ -102,7 +103,39 @@ public class Gui extends JFrame {
         panel_host_button.add(this.leeres_label);
 
         this.suchlauf = new JButton("Suchlauf starten");
+        suchlauf.addActionListener(new IpScanner());
         panel_host_button.add(this.suchlauf);
         // ENDE Host und Button Panel
+    }
+
+    public static void zeigeHosts(ArrayList<Host> hosts){
+
+        //Create a JPanel  
+        JPanel panel = new JPanel();  
+        panel.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+        //Create a scrollbar using JScrollPane and add panel into it's viewport  
+        //Set vertical and horizontal scrollbar as needed
+        JScrollPane scrollBar = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);  
+        
+        //Create a JFrame with title ( AddScrollBarToJFrame )  
+        JFrame frame = new JFrame("erreichte Hosts");  
+
+        //Add JScrollPane into JFrame  
+        frame.add(scrollBar);  
+
+        //Set JFrame size  
+        frame.setSize(400,400);  
+
+        //Make JFrame visible. So we can see it.  
+        frame.setVisible(true);  
+
+        JTextArea ip_output = new JTextArea();
+        panel.add(ip_output);
+
+        for (Host host : hosts) {
+            ip_output.append(host.ip_adresse + "\t" + host.host_name + "\n");
+        }
+
     }
 }
