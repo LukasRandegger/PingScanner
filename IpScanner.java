@@ -2,7 +2,6 @@ import java.awt.event.ActionEvent;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
-
 /**
  * IpScanner
  */
@@ -13,11 +12,11 @@ public class IpScanner extends SimplifiedListener{
 
         // je nachdem, ob 8/16/24 ausgewählt ist, müssen 1, 2 oder 3 Nibbles von der Eingabe-Maske übernommen werden
 
-
-        //TODO: check, ob die 4 nibbles ganze Zahlen sind, und ob sie zwischen 0 und 255 sind
+        // zeige dem Benutzer, dass das Programm nicht abgestürzt ist
+        Hauptklasse.gui.zeigeWarteFenster();
 
         String adresse;
-        ArrayList<String> ip_adresses = new ArrayList();
+        ArrayList<String> ip_adresses = new ArrayList<String>();
 
         // was geschieht hier
         switch (Hauptklasse.gui.subnetz_auswahl.getSelectedItem().toString()) {
@@ -29,33 +28,31 @@ public class IpScanner extends SimplifiedListener{
             case "16":
                 adresse = Hauptklasse.gui.nibble1.getText() + "." + Hauptklasse.gui.nibble2.getText();
                 ip_adresses = Scanlauf.AddNibble(adresse, 2);
-
                 break;
 
             case "24":
                 adresse = Hauptklasse.gui.nibble1.getText() + "." + Hauptklasse.gui.nibble2.getText() + "." + Hauptklasse.gui.nibble3.getText();
                 ip_adresses = Scanlauf.AddNibble(adresse, 1);
-
                 break;
         
             default:
                 break;
         }
 
-        ArrayList<Host> hosts = new ArrayList();
+        ArrayList<Host> hosts = new ArrayList<Host>();
         try {
             hosts = loopAllIps(ip_adresses);
         } catch (Exception ex) {
-            //TODO: handle exception
+            
         }
 
         Gui.zeigeHosts(hosts);
-        
+        Hauptklasse.gui.wartefenster.setVisible(false);
         
     }
     
     public static ArrayList<Host> loopAllIps(ArrayList<String> ips) throws Exception {
-        ArrayList<Host> hosts = new ArrayList();
+        ArrayList<Host> hosts = new ArrayList<Host>();
 
         // entferne Netzwerk-IP und Broadcast-Adresse        
         ips.remove(0);
@@ -63,7 +60,8 @@ public class IpScanner extends SimplifiedListener{
 
         for (String ip: ips) {
             InetAddress aktuelle_ip = InetAddress.getByName(ip);
-            if (true){ //aktuelle_ip.isReachable(10)){
+            if (true){ //aktuelle_ip.isReachable(50)){
+                //TODO: uf em Linux: de Timeout wider ine tue
                 String host_name;
                 if (Hauptklasse.gui.hostnamen.isSelected()) {
                     host_name = aktuelle_ip.getHostName();

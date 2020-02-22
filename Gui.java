@@ -23,10 +23,11 @@ public class Gui extends JFrame {
     JLabel dot3;
     JTextField nibble4;
     JLabel subnetz;
-    JComboBox subnetz_auswahl;
+    JComboBox<String> subnetz_auswahl;
     JCheckBox hostnamen;
     JLabel leeres_label = new JLabel("                    ");
     JButton suchlauf;
+    JFrame wartefenster;
 
     
 
@@ -85,7 +86,7 @@ public class Gui extends JFrame {
         panel_ip.add(this.subnetz);
         
         String[] subnetze = {"8", "16", "24"};
-        this.subnetz_auswahl = new JComboBox(subnetze);
+        this.subnetz_auswahl = new JComboBox<String>(subnetze);
         subnetz_auswahl.setSelectedItem("24");
         panel_ip.add(this.subnetz_auswahl);
         // ENDE IP Panel
@@ -108,6 +109,41 @@ public class Gui extends JFrame {
         this.setVisible(true);
     }
 
+    public void zeigeWarteFenster(){
+        this.wartefenster = new JFrame("Bitte warten, es werden sehr viele IPs überprüft");
+//        this.wartefenster.setLayout(new GridLayout(0, 1));
+/*
+        JLabel warte_label = new JLabel();
+        JLabel warte_label2 = new JLabel();
+        JLabel warte_label3 = new JLabel();
+        switch (this.subnetz_auswahl.getSelectedItem().toString()) {
+            case "8":
+                warte_label.setText("Suchlauf läuft, bitte warten...");
+                warte_label2.setText("Es werden 16'777'214‬ IP-Adressen überprüft,");
+                warte_label3.setText("gönnen Sie sich in der Zwischenzeit ein verlängertes Wochenende.");
+                this.wartefenster.setSize(400,100);
+                break;
+            case "16":
+                warte_label.setText("Suchlauf läuft, bitte warten...");
+                warte_label2.setText("Es werden 65'532‬ IP-Adressen überprüft,");
+                warte_label3.setText("gönnen Sie sich in der Zwischenzeit einen Kaffee.");
+                this.wartefenster.setSize(300,100);
+                break;
+            default:
+                warte_label.setText("Suchlauf läuft, bitte warten ...");
+                warte_label2.setText("Es werden 254‬ IP-Adressen überprüft,");
+                warte_label3.setText("zwinkern Sie 3 mal");
+                this.wartefenster.setSize(280,100);
+                break;
+        }
+        this.wartefenster.add(warte_label);
+        this.wartefenster.add(warte_label2);
+        this.wartefenster.add(warte_label3);*/
+        this.wartefenster.setLocation(200, 200);
+        this.wartefenster.setSize(300, 0);
+        this.wartefenster.setVisible(true);
+    }
+
     public static void zeigeHosts(ArrayList<Host> hosts){
 
         //Create a JPanel  
@@ -127,15 +163,15 @@ public class Gui extends JFrame {
         //Set JFrame size  
         frame.setSize(400,400);  
 
-        //Make JFrame visible. So we can see it.  
-        frame.setVisible(true);  
-
         JTextArea ip_output = new JTextArea();
         panel.add(ip_output);
-
+        
         for (Host host : hosts) {
             ip_output.append(host.ip_adresse + "\t" + host.host_name + "\n");
         }
-
+        
+        //Make JFrame visible. So we can see it.  
+        frame.setVisible(true);  
+        
     }
 }
