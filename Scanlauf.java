@@ -5,26 +5,23 @@ import java.util.ArrayList;
  */
 public class Scanlauf {
 
-    public static ArrayList < String > AddNibble(String baseAdress, int numberOfNibblesToAdd) {
+    public static ArrayList<String> addNibble(String base_adress, int number_of_nibbles_to_add) {
 
-        ArrayList < String > ipAdresses = new ArrayList < String > ();
+        ArrayList<String> ip_adresses = new ArrayList<String> ();
 
-        //Verstehen alle den Code?
+        // rekursiv und iterativ alle IPs im Subnetz bestimmen
         for (int i = 0; i < 256; i++) {
-            String newAddress = baseAdress + "." + i;
-            if (numberOfNibblesToAdd == 1) {
-                ipAdresses.add(newAddress);
+            String new_address = base_adress + "." + i;
+            if (number_of_nibbles_to_add == 1) {
+                ip_adresses.add(new_address);
                 continue;
             }
-
-            if (numberOfNibblesToAdd > 1) {
-
-                ipAdresses.addAll(AddNibble(newAddress, numberOfNibblesToAdd - 1));
+            if (number_of_nibbles_to_add > 1) {
+                ip_adresses.addAll(addNibble(new_address, number_of_nibbles_to_add - 1));
             }
-
         }
-        numberOfNibblesToAdd--;
+        number_of_nibbles_to_add--;
 
-        return ipAdresses;
+        return ip_adresses;
     }
 }

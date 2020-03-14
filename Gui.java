@@ -27,7 +27,6 @@ public class Gui extends JFrame {
     JCheckBox hostnamen;
     JLabel leeres_label = new JLabel("                    ");
     JButton suchlauf;
-    JFrame wartefenster;
 
     
 
@@ -109,41 +108,6 @@ public class Gui extends JFrame {
         this.setVisible(true);
     }
 
-    public void zeigeWarteFenster(){
-        this.wartefenster = new JFrame("Bitte warten, es werden sehr viele IPs überprüft");
-//        this.wartefenster.setLayout(new GridLayout(0, 1));
-/*
-        JLabel warte_label = new JLabel();
-        JLabel warte_label2 = new JLabel();
-        JLabel warte_label3 = new JLabel();
-        switch (this.subnetz_auswahl.getSelectedItem().toString()) {
-            case "8":
-                warte_label.setText("Suchlauf läuft, bitte warten...");
-                warte_label2.setText("Es werden 16'777'214‬ IP-Adressen überprüft,");
-                warte_label3.setText("gönnen Sie sich in der Zwischenzeit ein verlängertes Wochenende.");
-                this.wartefenster.setSize(400,100);
-                break;
-            case "16":
-                warte_label.setText("Suchlauf läuft, bitte warten...");
-                warte_label2.setText("Es werden 65'532‬ IP-Adressen überprüft,");
-                warte_label3.setText("gönnen Sie sich in der Zwischenzeit einen Kaffee.");
-                this.wartefenster.setSize(300,100);
-                break;
-            default:
-                warte_label.setText("Suchlauf läuft, bitte warten ...");
-                warte_label2.setText("Es werden 254‬ IP-Adressen überprüft,");
-                warte_label3.setText("zwinkern Sie 3 mal");
-                this.wartefenster.setSize(280,100);
-                break;
-        }
-        this.wartefenster.add(warte_label);
-        this.wartefenster.add(warte_label2);
-        this.wartefenster.add(warte_label3);*/
-        this.wartefenster.setLocation(200, 200);
-        this.wartefenster.setSize(300, 0);
-        this.wartefenster.setVisible(true);
-    }
-
     public static void zeigeHosts(ArrayList<Host> hosts){
 
         //Create a JPanel  
@@ -154,13 +118,8 @@ public class Gui extends JFrame {
         //Set vertical and horizontal scrollbar as needed
         JScrollPane scrollBar = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);  
         
-        //Create a JFrame with title ( AddScrollBarToJFrame )  
         JFrame frame = new JFrame("erreichte Hosts");  
-
-        //Add JScrollPane into JFrame  
         frame.add(scrollBar);  
-
-        //Set JFrame size  
         frame.setSize(400,400);  
 
         JTextArea ip_output = new JTextArea();
@@ -169,9 +128,7 @@ public class Gui extends JFrame {
         for (Host host : hosts) {
             ip_output.append(host.ip_adresse + "\t" + host.host_name + "\n");
         }
-        
-        //Make JFrame visible. So we can see it.  
+
         frame.setVisible(true);  
-        
     }
 }
